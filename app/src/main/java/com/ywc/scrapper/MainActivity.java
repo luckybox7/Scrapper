@@ -2,6 +2,7 @@ package com.ywc.scrapper;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,12 +10,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,11 +30,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Float Action Button Test", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_account_circle_black_24dp));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_alarm_on_black_24dp));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_arrow_back_white));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_create_new_folder_black_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("ALL ITEM"));
+        tabLayout.addTab(tabLayout.newTab().setText("FOLDER"));
+        tabLayout.addTab(tabLayout.newTab().setText("FAVORITE"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -60,13 +68,45 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_filter:
+                Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_settings:
+                Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
     public class MainPagerAdapter extends FragmentStatePagerAdapter {
 
-        private final int TAB_COUNT = 4;
+        private final int TAB_COUNT = 3;
         private final int ALL = 0;
         private final int FOLDER = 1;
         private final int NOTIFICATION = 2;
-        private final int SETTINGS = 3;
 
         public MainPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -85,9 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 case NOTIFICATION:
                     NotificationFragment tab3 = new NotificationFragment();
                     return tab3;
-                case SETTINGS:
-                    SettingsFragment tab4 = new SettingsFragment();
-                    return tab4;
                 default:
                     return null;
 
