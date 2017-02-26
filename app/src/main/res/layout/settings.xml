@@ -1,29 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/settings_notice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="공지사항"
-        android:textSize="30dp"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/settings_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorAccent"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <TextView
-        android:id="@+id/settings_tutorial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="사용법 보기"
-        android:textSize="30dp"/>
+    </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/settings_rate"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="플레이스토어 후기"
-        android:textSize="30dp"/>
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <TextView
+            android:id="@+id/settings_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="서비스&amp;건의"
+            android:textSize="14sp"
+            android:textColor="#48b6ad"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"/>
+
+        <TextView
+            android:id="@+id/settings_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공지사항"
+            android:textSize="16sp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"/>
+
+        <TextView
+            android:id="@+id/settings_tutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사용법(듀토리얼)"
+            android:textSize="16sp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"/>
+
+        <TextView
+            android:id="@+id/settings_explain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FAQ"
+            android:textSize="16sp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"/>
+
+        <TextView
+            android:id="@+id/settings_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="건의사항 전달"
+            android:textSize="16sp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"/>
+
+        <TextView
+            android:id="@+id/settings_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="플레이스토어 후기 남기기"
+            android:textSize="16sp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d1d1d1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <TextView
+            android:id="@+id/settings_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="정보"
+            android:textSize="16sp"
+            android:textColor="#48b6ad"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"/>
+
+        <TextView
+            android:id="@+id/settings_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="앱 버전"
+            android:textSize="16sp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="19dp"/>
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

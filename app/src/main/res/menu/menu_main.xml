@@ -7,14 +7,15 @@
 
     <item
         android:id="@+id/action_filter"
-        android:icon="@drawable/ic_filter_list_white_36dp"
+        android:icon="@drawable/btn_title_filter_n"
         android:title="action_filter"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings_white_36dp"
+        android:icon="@drawable/btn_title_setting_n"
         android:title="actions_settings"
         app:showAsAction="always"/>
+
 
 </menu>

@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,12 +41,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("ALL ITEM"));
         tabLayout.addTab(tabLayout.newTab().setText("FOLDER"));
         tabLayout.addTab(tabLayout.newTab().setText("FAVORITE"));
-
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());

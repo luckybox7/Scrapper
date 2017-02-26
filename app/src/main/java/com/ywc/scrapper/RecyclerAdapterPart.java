@@ -58,17 +58,17 @@ public class RecyclerAdapterPart extends RecyclerView.Adapter<RecyclerAdapterPar
         holder.titleText.setText(item.getTitle());
         holder.bodyText.setText(item.getBody());
 
-        holder.cardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, item.getTitle(),Toast.LENGTH_SHORT).show();
-                // 클릭했을때 새로운 화면 나타나야 한다
-
-
-                v.getContext().startActivity(new Intent(v.getContext(), ContentActivity.class));
-
-            }
-        });
+//        holder.cardview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context, item.getTitle(),Toast.LENGTH_SHORT).show();
+//                // 클릭했을때 새로운 화면 나타나야 한다
+//
+//
+//                v.getContext().startActivity(new Intent(v.getContext(), ContentActivity.class));
+//
+//            }
+//        });
 
 
 
@@ -81,17 +81,18 @@ public class RecyclerAdapterPart extends RecyclerView.Adapter<RecyclerAdapterPar
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cardview;
         ImageView thumbnail;
         TextView titleText;
         TextView bodyText;
+        TextView dateText;
 
         public ViewHolder(View itemView) {
             super(itemView);
             thumbnail=(ImageView)itemView.findViewById(R.id.thumbnail);
-            titleText = (TextView)itemView.findViewById(R.id.text1);
-            bodyText = (TextView)itemView.findViewById(R.id.text2);
-            cardview=(CardView)itemView.findViewById(R.id.cardview);
+            titleText = (TextView)itemView.findViewById(R.id.title);
+            bodyText = (TextView)itemView.findViewById(R.id.body);
+            dateText = (TextView)itemView.findViewById(R.id.date);
+
         }
     }
 

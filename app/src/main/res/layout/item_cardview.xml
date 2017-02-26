@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="113dp">
 
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"/>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardview"
-        card_view:cardCornerRadius="3dp"
+    <LinearLayout
+        android:id="@+id/contentBody"
+        android:layout_width="wrap_content"
+        android:layout_height="87dp"
+        android:orientation="vertical"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toLeftOf="@id/thumbnail">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="설연휴 맞이 컬러링북"
+            android:textSize="16sp"
+            android:maxLines="1"/>
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세"
+            android:textSize="13sp"
+            android:lineSpacingExtra="3dp"
+            android:maxLines="2"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017.02.11 am 11:11"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:layout_marginTop="3dp"/>
+
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        android:layout_margin="5dp">
+        android:layout_height="0.5dp"
+        android:background="#d1d1d1"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:orientation="horizontal">
+</RelativeLayout>
 
-            <ImageView
-                android:id="@+id/thumbnail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"/>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="6">
-
-                <TextView
-                    android:id="@+id/text1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="test1"
-                    android:textSize="30dp"
-                    android:layout_weight="5"/>
-
-                <TextView
-                    android:id="@+id/text2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="test2"
-                    android:layout_weight="5"/>
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
