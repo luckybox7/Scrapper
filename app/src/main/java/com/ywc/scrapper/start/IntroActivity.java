@@ -1,4 +1,4 @@
-package com.ywc.scrapper;
+package com.ywc.scrapper.start;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntro;
+import com.ywc.scrapper.MainActivity;
+import com.ywc.scrapper.R;
 
 /**
  * Created by Yongwon on 2017. 2. 8..

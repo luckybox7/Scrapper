@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"/>
-        <activity android:name=".IntroActivity"/>
-        <activity android:name=".SplashActivity">
+        <activity android:name=".start.IntroActivity"/>
+        <activity android:name=".start.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ContentActivity"/>
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".settings_all.SettingsActivity"/>
+        <activity android:name=".settings_all.SettingsNoticeActivity"/>
     </application>
 
 </manifest>

@@ -16,6 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ywc.scrapper.settings_all.SettingsActivity;
+import com.ywc.scrapper.viewPager_Fragment.AllFragment;
+import com.ywc.scrapper.viewPager_Fragment.FavoriteFragment;
+import com.ywc.scrapper.viewPager_Fragment.FolderFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     public static void startActivity(Activity activity) {
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_settings:
-                Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "settings_main", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity(intent);
                 return true;
@@ -127,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     FolderFragment tab2 = new FolderFragment();
                     return tab2;
                 case NOTIFICATION:
-                    NotificationFragment tab3 = new NotificationFragment();
+                    FavoriteFragment tab3 = new FavoriteFragment();
                     return tab3;
                 default:
                     return null;

@@ -1,4 +1,4 @@
-package com.ywc.scrapper;
+package com.ywc.scrapper.recycler_Part;
 
 /**
  * Created by Yongwon on 2017. 2. 8..
