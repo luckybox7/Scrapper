@@ -33,50 +33,76 @@
             android:layout_marginTop="19dp"
             android:layout_marginBottom="19dp"/>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/settings_notice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공지사항"
-            android:textSize="16sp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="19dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공지사항"
+                android:textSize="16sp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/settings_tutorial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="사용법(듀토리얼)"
-            android:textSize="16sp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="19dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용법(듀토리얼)"
+                android:textSize="16sp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/settings_explain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FAQ"
-            android:textSize="16sp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="19dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FAQ"
+                android:textSize="16sp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/settings_request"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="건의사항 전달"
-            android:textSize="16sp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="19dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="건의사항 전달"
+                android:textSize="16sp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/settings_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="플레이스토어 후기 남기기"
-            android:textSize="16sp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="19dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="플레이스토어 후기 남기기"
+                android:textSize="16sp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 

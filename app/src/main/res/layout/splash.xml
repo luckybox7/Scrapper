@@ -5,13 +5,11 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <TextView
+    <ImageView
+        android:id="@+id/splashImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="splash Image Test"
-        android:textSize="35dp"
-        android:textAlignment="center"
         android:layout_gravity="center"
-        android:id="@+id/textView" />
+        android:src="@drawable/logo_horizontal"/>
 
 </LinearLayout>

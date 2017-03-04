@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Scrapper</string>
+    <string name="input">추가하기</string>
+    <string name="input_content">URL을 입력하세요</string>
+    <string name="input_hint">http://</string>
+    <string name="submit">완료</string>
+
+
 </resources>
