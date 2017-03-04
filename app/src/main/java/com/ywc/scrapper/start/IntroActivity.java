@@ -20,11 +20,14 @@ public class IntroActivity extends AppIntro {
 
         super.onCreate(savedInstanceState);
 
+
         addSlide(IntroSlide.newInstance(R.layout.introslide_1));
         addSlide(IntroSlide.newInstance(R.layout.introslide_2));
         addSlide(IntroSlide.newInstance(R.layout.introslide_3));
 
         setFadeAnimation();
+
+
     }
 
     @Override

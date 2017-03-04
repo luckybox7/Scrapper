@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,7 +36,6 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     String urlFromWeb;
-    private Toast toast;
 
     public static void startActivity(Activity activity) {
         activity.startActivity(new Intent(activity, MainActivity.class));
@@ -47,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setLogo(R.drawable.logo_typeface);
@@ -88,6 +85,66 @@ public class MainActivity extends AppCompatActivity {
 //        }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_filter:
+                Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_settings:
+                Toast.makeText(getApplicationContext(), "settings_main", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public class MainPagerAdapter extends FragmentStatePagerAdapter {
+
+        private final int TAB_COUNT = 3;
+        private final int ALL = 0;
+        private final int FOLDER = 1;
+        private final int NOTIFICATION = 2;
+
+        public MainPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            switch(position) {
+                case ALL:
+                    AllFragment tab1 = new AllFragment();
+                    return tab1;
+                case FOLDER:
+                    FolderFragment tab2 = new FolderFragment();
+                    return tab2;
+                case NOTIFICATION:
+                    FavoriteFragment tab3 = new FavoriteFragment();
+                    return tab3;
+                default:
+                    return null;
+
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return TAB_COUNT;
+        }
+    }
+
     public void fabClicked(View v) {
 
         new MaterialDialog.Builder(this)
@@ -126,68 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             return null;
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.action_filter:
-                Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.action_settings:
-                Toast.makeText(getApplicationContext(), "settings_main", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(intent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
-
-    public class MainPagerAdapter extends FragmentStatePagerAdapter {
-
-        private final int TAB_COUNT = 3;
-        private final int ALL = 0;
-        private final int FOLDER = 1;
-        private final int NOTIFICATION = 2;
-
-        public MainPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-
-            switch(position) {
-                case ALL:
-                    AllFragment tab1 = new AllFragment();
-                    return tab1;
-                case FOLDER:
-                    FolderFragment tab2 = new FolderFragment();
-                    return tab2;
-                case NOTIFICATION:
-                    FavoriteFragment tab3 = new FavoriteFragment();
-                    return tab3;
-                default:
-                    return null;
-
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return TAB_COUNT;
         }
     }
 
