@@ -1,4 +1,4 @@
-package com.ywc.scrapper.start;
+package com.ywc.scrapper.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,12 +11,12 @@ import android.view.ViewGroup;
  * Created by Yongwon on 2017. 2. 8..
  */
 
-public class IntroSlide extends Fragment {
+public class IntroFragment extends Fragment {
     private static final String ARG_LAYOUT_RES_ID = "layoutResId";
     private int layoutResId;
 
-    public static IntroSlide newInstance(int layoutResId) {
-        IntroSlide sampleSlide = new IntroSlide();
+    public static IntroFragment newInstance(int layoutResId) {
+        IntroFragment sampleSlide = new IntroFragment();
 
         Bundle args = new Bundle();
         args.putInt(ARG_LAYOUT_RES_ID, layoutResId);

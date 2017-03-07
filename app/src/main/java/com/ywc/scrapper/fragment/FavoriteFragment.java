@@ -1,4 +1,4 @@
-package com.ywc.scrapper.viewPager_Fragment;
+package com.ywc.scrapper.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +17,6 @@ public class FavoriteFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_fragment_3, container, false);
+        return inflater.inflate(R.layout.fragment_favorite, container, false);
     }
 }

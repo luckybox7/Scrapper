@@ -1,9 +1,6 @@
-package com.ywc.scrapper.recycler_Part;
+package com.ywc.scrapper.adapter;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,43 +10,39 @@ import android.widget.TextView;
 
 import com.ywc.scrapper.R;
 
-import java.util.List;
-
 /**
  * Created by Yongwon on 2017. 2. 8..
  */
 
-public class RecyclerAdapterPart extends RecyclerView.Adapter<RecyclerAdapterPart.ViewHolder>{
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
 
-    Context context;
-    List<RecyclerItem> itemList;
+    private Context context;
+//    private List<RecyclerItem> itemList;
 
-    public RecyclerAdapterPart(Context context, List<RecyclerItem> itemList) {
+    public ItemAdapter(Context context) {
         this.context=context;
-        this.itemList=itemList;
     }
 
     // 뷰 홀더를 어떻게 생성할 것인가??
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cardview,null);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.content,null);
+        ItemViewHolder itemViewHolder = new ItemViewHolder(view);
+        return itemViewHolder;
     }
 
 
     // 뷰홀더를 데이터와 바인딩 할 때 어떻게 할 것인가??
     // 리스트의 한 영역에 holder를 이용, ui접근 후 데이터를 그려준다??
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
 
-        final RecyclerItem item=itemList.get(position); // 뷰 순서대로 위치 파악
-
-        Drawable drawable=context.getResources().getDrawable(item.getImage());
-        holder.thumbnail.setBackground(drawable);
-        holder.titleText.setText(item.getTitle());
-        holder.bodyText.setText(item.getBody());
+//        final RecyclerItem item=itemList.get(position); // 뷰 순서대로 위치 파악
+//
+//        Drawable drawable=context.getResources().getDrawable(item.getImage());
+//        holder.thumbnail.setBackground(drawable);
+//        holder.titleText.setText(item.getTitle());
+//        holder.bodyText.setText(item.getBody());
 
 //        holder.cardview.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -69,25 +62,22 @@ public class RecyclerAdapterPart extends RecyclerView.Adapter<RecyclerAdapterPar
 
     @Override
     public int getItemCount() {
-        return this.itemList.size();
+        return 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         ImageView thumbnail;
         TextView titleText;
         TextView bodyText;
         TextView dateText;
 
-        public ViewHolder(View itemView) {
+        public ItemViewHolder(View itemView) {
             super(itemView);
             thumbnail=(ImageView)itemView.findViewById(R.id.thumbnail);
             titleText = (TextView)itemView.findViewById(R.id.title);
             bodyText = (TextView)itemView.findViewById(R.id.body);
             dateText = (TextView)itemView.findViewById(R.id.date);
-
         }
     }
-
-
 }

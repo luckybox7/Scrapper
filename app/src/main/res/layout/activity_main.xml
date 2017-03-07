@@ -40,8 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_white_36dp"
-        android:onClick="fabClicked"/>
+        android:src="@drawable/ic_add_white_36dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
