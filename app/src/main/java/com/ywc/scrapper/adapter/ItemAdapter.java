@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ywc.scrapper.R;
+import com.ywc.scrapper.model.Content;
+
+import io.realm.RealmResults;
 
 /**
  * Created by Yongwon on 2017. 2. 8..
@@ -17,7 +20,9 @@ import com.ywc.scrapper.R;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
 
     private Context context;
-//    private List<RecyclerItem> itemList;
+
+    //// TODO: 2017. 3. 7. Content 기준으로 다 바꾸기
+    private RealmResults<Content> itemList;
 
     public ItemAdapter(Context context) {
         this.context=context;

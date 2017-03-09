@@ -1,11 +1,38 @@
 <resources>
 
     <string name="app_name">Scrapper</string>
+
+    <!-- 메인화면-->
+
+    <string name="tab_item">ALL ITEMS</string>
+    <string name="tab_folder">FOLDER</string>
+    <string name="tab_favorite">FAVORITE</string>
+
+
+    <!-- 설정화면 메인 -->
+    <string name="setting_service">서비스&amp;건의</string>
+    <string name="setting_notice">공지사항</string>
+    <string name="setting_tutorial">사용법(듀토리얼)</string>
+    <string name="setting_faq">FAQ</string>
+    <string name="setting_suggest">건의사항 전달</string>
+    <string name="setting_store">플레이스토어 평점 남기기</string>
+    <string name="setting_info">정보</string>
+    <string name="setting_version">앱버전</string>
+
+
+    <!-- 설정화면 공지사항-->
+    <string name="notice_description">공지사항 관련 내용</string>
+
+    <!-- Dialog 버튼 -->
+    <string name="select_folder">폴더</string>
+    <string name="select_item">아이템</string>
+
     <string name="input">추가하기</string>
-    <string name="add_content">URL 입력</string>
-    <string name="add_folder">폴더명 입력</string>
+    <string name="add_item">URL 입력</string>
     <string name="input_hint"> </string>
     <string name="submit">완료</string>
+
+    <string name="add_folder">폴더명 입력</string>
 
     <string name="choice">추가할 항목을 선택하세요</string>
 

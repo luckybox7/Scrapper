@@ -1,5 +1,6 @@
 package com.ywc.scrapper.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -30,7 +31,8 @@ public class IntroActivity extends AppIntro {
         super.onSkipPressed(currentFragment);
 
         finish();
-        MainActivity.startActivity(IntroActivity.this);
+        Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -38,6 +40,7 @@ public class IntroActivity extends AppIntro {
         super.onDonePressed(currentFragment);
 
         finish();
-        MainActivity.startActivity(IntroActivity.this);
+        Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

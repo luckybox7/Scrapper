@@ -27,7 +27,6 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="설연휴 맞이 컬러링북"
             android:textSize="16sp"
             android:maxLines="1"/>
 
@@ -35,11 +34,11 @@
             android:id="@+id/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세"
             android:textSize="13sp"
             android:lineSpacingExtra="3dp"
             android:maxLines="2"
             android:layout_marginTop="5dp" />
+
 
         <TextView
             android:id="@+id/date"

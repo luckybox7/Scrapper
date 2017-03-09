@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.ywc.scrapper.R;
 
+import io.realm.Realm;
+
 /**
  * Created by Yongwon on 2017. 2. 8..
  */
@@ -19,6 +21,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+
+        Realm.init(this);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -39,6 +43,8 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, 2000);
+
+
     }
 }
 

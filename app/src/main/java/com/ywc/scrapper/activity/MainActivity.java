@@ -2,7 +2,6 @@ package com.ywc.scrapper.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -21,29 +20,16 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.ywc.scrapper.R;
-import com.ywc.scrapper.model.Content;
+import com.ywc.scrapper.helper.ItemParser;
 import com.ywc.scrapper.fragment.ItemFragment;
 import com.ywc.scrapper.fragment.FavoriteFragment;
 import com.ywc.scrapper.fragment.FolderFragment;
+import com.ywc.scrapper.manager.DBmanager;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.util.Date;
-
-import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
 
     String urlFromWeb;
-    private Realm realm;
-
-    //// TODO: 2017. 3. 7. 체크
-    public static void startActivity(Activity activity) {
-        activity.startActivity(new Intent(activity, MainActivity.class));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +70,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        //// TODO: 2017. 3. 7.
-        tabLayout.addTab(tabLayout.newTab().setText("ITEM ITEM"));
-        tabLayout.addTab(tabLayout.newTab().setText("FOLDER"));
-        tabLayout.addTab(tabLayout.newTab().setText("FAVORITE"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_item));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_folder));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_favorite));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -152,36 +137,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void init() {
-        Realm.init(this);
-        realm = Realm.getDefaultInstance();
-    }
-
-    private void insertData(String title, String description, String imageURL) {
-        Date date = new Date(System.currentTimeMillis());
-
-        System.out.println("테스트중2");
-
-        realm.beginTransaction();
-        Content content = realm.createObject(Content.class, "1"); // 1은 contentID (PrimaryKey), 순서대로 자동증가 필요
-        content.setTitle(title);
-        content.setDescription(description);
-        content.setImage(imageURL);
-        content.setFavorite(false);
-        content.setDate(date);
-        realm.commitTransaction();
-
-        System.out.println(content);
-    }
-
     public void selectAddType() {
         new MaterialDialog.Builder(this)
                 .title(R.string.choice)
-                .items("폴더", "콘텐츠")
+                .items("폴더", "아이템")
+                //// TODO: 2017. 3. 9. int형? 체크할 것
+//                .items(R.string.select_folder, R.string.select_item)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
-                        if (text.toString().equals("콘텐츠")) {
+                        if (text.toString().equals("아이템")) {
                             addItem(); // 아아템 추가
                         } else {
                             addFolder();
@@ -194,14 +159,33 @@ public class MainActivity extends AppCompatActivity {
     public void addItem() {
         new MaterialDialog.Builder(this)
                 .title(R.string.input)
-                .content(R.string.add_content)
+                .content(R.string.add_item)
                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME)
                 .positiveText(R.string.submit)
                 .input(R.string.input_hint, R.string.input_hint, false, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        urlFromWeb = input.toString(); // 입력받은 내용을 String 변수에 넣기?? 이렇게 해도 되나 매개변수로 넘겨줘야 될 것 같은데
+                        urlFromWeb = input.toString();
+
 //                        new GetHtmlOgTag().execute(null, null, null);
+
+
+                        ItemParser.ResultCallback result = new ItemParser.ResultCallback(){
+
+                            @Override
+                            public void onSuccess(String title, String description, String imageURL) {
+                                System.out.println("콜백 테스트");
+                                DBmanager.insertItem(title, description, imageURL);
+                            }
+
+                            @Override
+                            public void onFailure() {
+
+                            }
+                        };
+
+                        new ItemParser(urlFromWeb, result);
+
 
                     }
                 }).show();

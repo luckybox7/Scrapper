@@ -32,6 +32,8 @@ public class ItemFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
+        //// TODO: 2017. 3. 9. default 이미지 관리
+        // defaultImage 설정 바꾸기
 
 //        =======================================================================================================================================
 //        임시코드 -> 삭제해야할 부분
