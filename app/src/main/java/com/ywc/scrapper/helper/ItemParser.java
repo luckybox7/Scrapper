@@ -22,15 +22,12 @@ public class ItemParser extends AsyncTask<Void, Void, Void> {
         this.resultCallback = resultCallback;
     }
 
-
-
     // 콜백함수 만들기, 성공했을 경우 실패했을 경우(케이스 다수)
 
     public interface ResultCallback {
         public void onSuccess(String title, String description, String imageURL);
         public void onFailure();
     }
-
 
     @Override
     protected Void doInBackground(Void... params) {

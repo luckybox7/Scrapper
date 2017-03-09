@@ -169,8 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                        new GetHtmlOgTag().execute(null, null, null);
 
-
-                        ItemParser.ResultCallback result = new ItemParser.ResultCallback(){
+                        final ItemParser.ResultCallback result = new ItemParser.ResultCallback(){
 
                             @Override
                             public void onSuccess(String title, String description, String imageURL) {
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         };
 
-                        new ItemParser(urlFromWeb, result);
+                        new ItemParser(urlFromWeb, result).execute(null, null, null);
 
 
                     }
