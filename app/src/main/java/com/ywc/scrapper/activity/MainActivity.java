@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         new MaterialDialog.Builder(this)
                 .title(R.string.choice)
                 .items("폴더", "아이템")
-                //// TODO: 2017. 3. 9. int형? 체크할 것
+                //// TODO: 2017. 3. 9. 체크할 것
 //                .items(R.string.select_folder, R.string.select_item)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
@@ -166,8 +166,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         urlFromWeb = input.toString();
-
-//                        new GetHtmlOgTag().execute(null, null, null);
 
                         final ItemParser.ResultCallback result = new ItemParser.ResultCallback(){
 

@@ -1,6 +1,7 @@
 package com.ywc.scrapper.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ywc.scrapper.R;
+import com.ywc.scrapper.manager.DBmanager;
 import com.ywc.scrapper.model.Content;
 
 import io.realm.RealmResults;
@@ -20,12 +23,11 @@ import io.realm.RealmResults;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
 
     private Context context;
-
-    //// TODO: 2017. 3. 7. Content 기준으로 다 바꾸기
     private RealmResults<Content> itemList;
 
-    public ItemAdapter(Context context) {
+    public ItemAdapter(Context context, RealmResults<Content> items) {
         this.context=context;
+        this.itemList=items;
     }
 
     // 뷰 홀더를 어떻게 생성할 것인가??
@@ -42,32 +44,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
-//        final RecyclerItem item=itemList.get(position); // 뷰 순서대로 위치 파악
-//
-//        Drawable drawable=context.getResources().getDrawable(item.getImage());
-//        holder.thumbnail.setBackground(drawable);
-//        holder.titleText.setText(item.getTitle());
-//        holder.bodyText.setText(item.getBody());
+        final Content item = itemList.get(position); // 뷰 순서대로 위치 파악
 
-//        holder.cardview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context, item.getTitle(),Toast.LENGTH_SHORT).show();
-//                // 클릭했을때 새로운 화면 나타나야 한다
-//
-//
-//                v.getContext().startActivity(new Intent(v.getContext(), ContentActivity.class));
-//
-//            }
-//        });
-
-
-
+        Glide.with(context).load(item.getImage()).centerCrop().into(holder.thumbnail);
+        holder.titleText.setText(item.getTitle());
+        holder.bodyText.setText(item.getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return itemList.size();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -79,7 +65,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            thumbnail=(ImageView)itemView.findViewById(R.id.thumbnail);
+            thumbnail = (ImageView)itemView.findViewById(R.id.thumbnail);
             titleText = (TextView)itemView.findViewById(R.id.title);
             bodyText = (TextView)itemView.findViewById(R.id.body);
             dateText = (TextView)itemView.findViewById(R.id.date);

@@ -10,6 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ywc.scrapper.R;
+import com.ywc.scrapper.adapter.ItemAdapter;
+import com.ywc.scrapper.manager.DBmanager;
+import com.ywc.scrapper.model.Content;
+
+import java.util.ArrayList;
+
+import io.realm.RealmResults;
 
 /**
  * Created by Yongwon on 2017. 2. 8..
@@ -17,8 +24,7 @@ import com.ywc.scrapper.R;
 
 public class ItemFragment extends Fragment {
 
-    final int ITEM_COUNT = 5;
-//    List<RecyclerItem> items;
+    RealmResults<Content> items;
 
     @Nullable
     @Override
@@ -32,32 +38,12 @@ public class ItemFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        //// TODO: 2017. 3. 9. default 이미지 관리
+        //// TODO: 2017. 3. 9. default 이미지 관리 -> Glide 이미지 처리
         // defaultImage 설정 바꾸기
 
-//        =======================================================================================================================================
-//        임시코드 -> 삭제해야할 부분
-//
-//        items = new ArrayList<>();
-//
-//        final RecyclerItem[] item =new RecyclerItem[ITEM_COUNT];
-//        item[0]=new RecyclerItem(R.drawable.default_img,"축구 국가대표팀", "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세");
-//        item[1]=new RecyclerItem(R.drawable.default_img,"설연휴 맞이 컬러링북", "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세");
-//        item[2]=new RecyclerItem(R.drawable.default_img,"새 학기 맞이 노트북 대란", "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세");
-//        item[3]=new RecyclerItem(R.drawable.default_img,"아이스하키 여자 대표팀 첫 승", "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세");
-//        item[4]=new RecyclerItem(R.drawable.default_img,"갤럭시S8 출시소식", "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세");
-//
-//        for(int i=0; i<ITEM_COUNT; i++) {
-//            items.add(item[i]);
-//        }
+        items = DBmanager.getItem();
 
-//        =======================================================================================================================================
-
-
-
-
-//        final ItemAdapter recyclerAdapterPart = new ItemAdapter(getActivity(), items);
-
+        final ItemAdapter itemAdapter = new ItemAdapter(getActivity(), items);
 
 
 //        view.findViewById(R.id.addButton).setOnClickListener(new Button.OnClickListener(){
@@ -72,7 +58,7 @@ public class ItemFragment extends Fragment {
 //        });
 
 
-//        recyclerView.setAdapter(recyclerAdapterPart);
+        recyclerView.setAdapter(itemAdapter);
 
         return view;
     }

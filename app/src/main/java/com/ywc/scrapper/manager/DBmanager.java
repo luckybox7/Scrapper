@@ -3,6 +3,8 @@ package com.ywc.scrapper.manager;
 
 import com.ywc.scrapper.model.Content;
 import java.util.Date;
+import java.util.UUID;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -17,7 +19,8 @@ public class DBmanager {
 
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        Content content = realm.createObject(Content.class, "1"); // 1은 contentID (PrimaryKey), 순서대로 자동증가 필요
+        //// TODO: 2017. 3. 11. UUID 사용 확인
+        Content content = realm.createObject(Content.class, UUID.randomUUID().toString()); // 1은 contentID (PrimaryKey), 순서대로 자동증가 필요
         content.setTitle(title);
         content.setDescription(description);
         content.setImage(imageURL);
@@ -28,9 +31,11 @@ public class DBmanager {
         System.out.println(content);
     }
 
-    public static void getItem(String title, String description, String imageURL) {
+    public static RealmResults<Content> getItem() {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Content> contentList = realm.where(Content.class)
                 .findAll();
+
+        return contentList;
     }
 }
