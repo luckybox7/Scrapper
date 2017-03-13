@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                         if (text.toString().equals("아이템")) {
                             addItem(); // 아아템 추가
                         } else {
-                            addFolder();
+                            addFolder(); // 폴더추가
                         }
                     }
                 })
@@ -173,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
                             public void onSuccess(String title, String description, String imageURL) {
                                 System.out.println("콜백 테스트");
                                 DBmanager.insertItem(title, description, imageURL);
+
+
                             }
 
                             @Override
@@ -198,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         Toast.makeText(getApplicationContext(), "입력한 폴더명은 " + input.toString() + " 입니다", Toast.LENGTH_SHORT).show();
+                        DBmanager.createFolder(input.toString());
                     }
                 }).show();
     }

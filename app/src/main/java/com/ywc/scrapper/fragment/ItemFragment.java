@@ -31,7 +31,7 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all, container, false);
 
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_item);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
@@ -43,7 +43,9 @@ public class ItemFragment extends Fragment {
 
         items = DBmanager.getItem();
 
-        final ItemAdapter itemAdapter = new ItemAdapter(getActivity(), items);
+        ItemAdapter itemAdapter = new ItemAdapter(getActivity(), items);
+
+
 
 
 //        view.findViewById(R.id.addButton).setOnClickListener(new Button.OnClickListener(){

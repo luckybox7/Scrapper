@@ -2,6 +2,8 @@ package com.ywc.scrapper.manager;
 
 
 import com.ywc.scrapper.model.Content;
+import com.ywc.scrapper.model.Folder;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -37,5 +39,23 @@ public class DBmanager {
                 .findAll();
 
         return contentList;
+    }
+
+    public static void createFolder(String folderName) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        Folder folder = realm.createObject(Folder.class, UUID.randomUUID().toString());
+        folder.setFolderName(folderName);
+        realm.commitTransaction();
+
+        System.out.println(folder);
+    }
+
+    public static RealmResults<Folder> getFolder() {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Folder> folderList = realm.where(Folder.class)
+                .findAll();
+
+        return folderList;
     }
 }
