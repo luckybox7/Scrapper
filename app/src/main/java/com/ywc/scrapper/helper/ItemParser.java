@@ -47,7 +47,6 @@ public class ItemParser extends AsyncTask<Void, Void, Void> {
 
             resultCallback.onSuccess(title, description, imageURL);
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }

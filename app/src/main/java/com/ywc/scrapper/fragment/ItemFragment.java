@@ -14,8 +14,6 @@ import com.ywc.scrapper.adapter.ItemAdapter;
 import com.ywc.scrapper.manager.DBmanager;
 import com.ywc.scrapper.model.Content;
 
-import java.util.ArrayList;
-
 import io.realm.RealmResults;
 
 /**
@@ -25,27 +23,35 @@ import io.realm.RealmResults;
 public class ItemFragment extends Fragment {
 
     RealmResults<Content> items;
+    ItemAdapter itemAdapter;
+    RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all, container, false);
 
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_item);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_item);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
+        statusChanged();
 
-        //// TODO: 2017. 3. 9. default 이미지 관리 -> Glide 이미지 처리
-        // defaultImage 설정 바꾸기
+        return view;
+    }
+
+    public void statusChanged() {
 
         items = DBmanager.getItem();
+        itemAdapter = new ItemAdapter(getActivity(), items);
 
-        ItemAdapter itemAdapter = new ItemAdapter(getActivity(), items);
+        recyclerView.setAdapter(itemAdapter);
 
+    }
 
+}
 
 
 //        view.findViewById(R.id.addButton).setOnClickListener(new Button.OnClickListener(){
@@ -58,10 +64,3 @@ public class ItemFragment extends Fragment {
 //            }
 //
 //        });
-
-
-        recyclerView.setAdapter(itemAdapter);
-
-        return view;
-    }
-}

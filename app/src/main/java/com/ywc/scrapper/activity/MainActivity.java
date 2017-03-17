@@ -1,6 +1,5 @@
 package com.ywc.scrapper.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +29,8 @@ import com.ywc.scrapper.manager.DBmanager;
 public class MainActivity extends AppCompatActivity {
 
     String urlFromWeb;
+
+    ItemFragment itemFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position) {
                 case ITEM:
-                    return new ItemFragment();
+                    itemFragment = new ItemFragment();
+                    return itemFragment;
                 case FOLDER:
                     return new FolderFragment();
                 case FAVORITE:
@@ -174,7 +176,12 @@ public class MainActivity extends AppCompatActivity {
                                 System.out.println("콜백 테스트");
                                 DBmanager.insertItem(title, description, imageURL);
 
-
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        itemFragment.statusChanged();
+                                    }
+                                });
                             }
 
                             @Override

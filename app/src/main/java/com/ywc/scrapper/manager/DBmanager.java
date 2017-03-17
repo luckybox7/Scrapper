@@ -16,6 +16,8 @@ import io.realm.RealmResults;
 
 public class DBmanager {
 
+
+
     public static void insertItem(String title, String description, String imageURL) {
         Date date = new Date(System.currentTimeMillis());
 
