@@ -13,6 +13,8 @@ import com.ywc.scrapper.R;
 import com.ywc.scrapper.manager.DBmanager;
 import com.ywc.scrapper.model.Content;
 
+import java.text.SimpleDateFormat;
+
 import io.realm.RealmResults;
 
 /**
@@ -43,11 +45,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
+        //// TODO: 2017. 3. 19. date format 체크 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd "+" a hh:mm");
+        
         final Content item = itemList.get(position); // 뷰 순서대로 위치 파악
 
         Glide.with(context).load(item.getImage()).centerCrop().into(holder.thumbnail);
         holder.titleText.setText(item.getTitle());
         holder.bodyText.setText(item.getDescription());
+        holder.dateText.setText(dateFormat.format(item.getDate()).toString());
     }
 
     @Override
