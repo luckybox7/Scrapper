@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.MainActivity">
+
+    <item
+        android:id="@+id/action_mode_favorite"
+        android:icon="@drawable/btn_listpopup_star_n"
+        android:title="action_folder"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_mode_folder"
+        android:icon="@drawable/btn_listpopup_movefolder_n"
+        android:title="action_folder"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_mode_delete"
+        android:icon="@drawable/btn_listpopup_delete_n"
+        android:title="actions_delete"
+        app:showAsAction="always"/>
+
+
+</menu>

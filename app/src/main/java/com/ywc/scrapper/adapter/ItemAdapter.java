@@ -1,16 +1,20 @@
 package com.ywc.scrapper.adapter;
 
 import android.content.Context;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ywc.scrapper.R;
-import com.ywc.scrapper.manager.DBmanager;
 import com.ywc.scrapper.model.Content;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +29,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     private Context context;
     private RealmResults<Content> itemList;
+    private android.view.ActionMode actionMode;
 
     public ItemAdapter(Context context, RealmResults<Content> items) {
         this.context=context;
@@ -68,12 +73,69 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         TextView bodyText;
         TextView dateText;
 
-        public ItemViewHolder(View itemView) {
+        public ItemViewHolder(final View itemView) {
             super(itemView);
             thumbnail = (ImageView)itemView.findViewById(R.id.thumbnail);
             titleText = (TextView)itemView.findViewById(R.id.title);
             bodyText = (TextView)itemView.findViewById(R.id.body);
             dateText = (TextView)itemView.findViewById(R.id.date);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int p = getLayoutPosition();
+                    Toast.makeText(itemView.getContext(), "Click Test " + p, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    if(actionMode == null) {
+                        actionMode = v.startActionMode(mActionModeCallback);
+                        actionMode.setTitle("test");
+                    }
+
+                    int p = getLayoutPosition();
+                    Toast.makeText(itemView.getContext(), "LongClick Test " + p, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
         }
     }
+
+    private android.view.ActionMode.Callback mActionModeCallback = new android.view.ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.menu_action_mode, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(android.view.ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
+            switch(item.getItemId()){
+                case R.id.action_mode_favorite:
+                    Toast.makeText(context, "favorite click", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.action_mode_folder:
+                    Toast.makeText(context, "folder click", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.action_mode_delete:
+                    Toast.makeText(context, "delete click", Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(android.view.ActionMode mode) {
+            actionMode = null;
+        }
+    };
 }

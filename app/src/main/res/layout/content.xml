@@ -46,7 +46,6 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2017.02.11 am 11:11"
             android:textSize="12sp"
             android:maxLines="1"
             android:layout_marginTop="3dp"/>
