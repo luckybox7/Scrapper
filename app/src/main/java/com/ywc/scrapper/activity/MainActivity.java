@@ -29,7 +29,6 @@ import com.ywc.scrapper.manager.DBmanager;
 public class MainActivity extends AppCompatActivity {
 
     String urlFromWeb;
-
     ItemFragment itemFragment;
 
     @Override

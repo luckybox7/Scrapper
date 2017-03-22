@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -30,16 +31,15 @@ public class ItemFragment extends Fragment {
     RealmResults<Content> items;
     ItemAdapter itemAdapter;
     RecyclerView recyclerView;
-    ActionMode actionMode;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_item);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_item);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 

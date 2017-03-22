@@ -3,6 +3,7 @@ package com.ywc.scrapper.adapter;
 import android.content.Context;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,9 +32,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     private RealmResults<Content> itemList;
     private android.view.ActionMode actionMode;
 
+
     public ItemAdapter(Context context, RealmResults<Content> items) {
         this.context=context;
         this.itemList=items;
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemList.size();
     }
 
     // 뷰 홀더를 어떻게 생성할 것인가??
@@ -59,12 +66,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.titleText.setText(item.getTitle());
         holder.bodyText.setText(item.getDescription());
         holder.dateText.setText(dateFormat.format(item.getDate()).toString());
+
     }
 
-    @Override
-    public int getItemCount() {
-        return itemList.size();
-    }
+
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -73,8 +78,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         TextView bodyText;
         TextView dateText;
 
+        SparseBooleanArray selectedItems = new SparseBooleanArray();
+
         public ItemViewHolder(final View itemView) {
             super(itemView);
+
             thumbnail = (ImageView)itemView.findViewById(R.id.thumbnail);
             titleText = (TextView)itemView.findViewById(R.id.title);
             bodyText = (TextView)itemView.findViewById(R.id.body);
@@ -83,6 +91,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     int p = getLayoutPosition();
                     Toast.makeText(itemView.getContext(), "Click Test " + p, Toast.LENGTH_SHORT).show();
                 }
@@ -94,7 +103,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
                     if(actionMode == null) {
                         actionMode = v.startActionMode(mActionModeCallback);
-                        actionMode.setTitle("test");
+                        actionMode.setTitle("selected");
+                    }
+
+                    if(selectedItems.get(getAdapterPosition(), false)) {
+                        selectedItems.delete(getAdapterPosition());
+                        v.setSelected(false);
+                    }else {
+                        selectedItems.put(getAdapterPosition(), true);
+                        v.setSelected(true);
                     }
 
                     int p = getLayoutPosition();
@@ -138,4 +155,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             actionMode = null;
         }
     };
+
+
 }
