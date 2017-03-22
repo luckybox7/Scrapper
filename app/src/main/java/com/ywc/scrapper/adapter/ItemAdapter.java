@@ -32,10 +32,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     private RealmResults<Content> itemList;
     private android.view.ActionMode actionMode;
 
+    private SparseBooleanArray selectedItems;
+    private boolean checkSelected = false;
+
 
     public ItemAdapter(Context context, RealmResults<Content> items) {
         this.context=context;
         this.itemList=items;
+        selectedItems = new SparseBooleanArray();
     }
 
     @Override
@@ -55,7 +59,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     // 뷰홀더를 데이터와 바인딩 할 때 어떻게 할 것인가??
     // 리스트의 한 영역에 holder를 이용, ui접근 후 데이터를 그려준다??
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
         //// TODO: 2017. 3. 19. date format 체크 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd "+" a hh:mm");
@@ -65,7 +69,53 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         Glide.with(context).load(item.getImage()).centerCrop().into(holder.thumbnail);
         holder.titleText.setText(item.getTitle());
         holder.bodyText.setText(item.getDescription());
-        holder.dateText.setText(dateFormat.format(item.getDate()).toString());
+        holder.dateText.setText(dateFormat.format(item.getDate()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                if(actionMode != null) {
+//                    actionMode.finish();
+//                    actionMode.invalidate();
+//                }
+                if(checkSelected) {
+                    if(selectedItems.size() == 0) {
+                        checkSelected = false;
+                        return;
+                    }
+                    if(selectedItems.get(position, false)) {
+                        selectedItems.delete(position);
+                        holder.itemView.setSelected(false);
+                    } else {
+                        selectedItems.put(position, true);
+                        holder.itemView.setSelected(true);
+                    }
+                }else{
+                    //// TODO: 2017. 3. 22. Webview에 html파일 load하는 작업
+                    System.out.println("그냥 클릭");
+                }
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                checkSelected = true;
+                if(selectedItems.get(position, false)) {
+                    selectedItems.delete(position);
+                    holder.itemView.setSelected(false);
+                }else{
+                    selectedItems.put(position, true);
+                    holder.itemView.setSelected(true);
+                }
+
+                if(actionMode == null) {
+                    actionMode = v.startActionMode(mActionModeCallback);
+                    actionMode.setTitle("selected");
+                }
+                return true;
+            }
+        });
 
     }
 
@@ -78,8 +128,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         TextView bodyText;
         TextView dateText;
 
-        SparseBooleanArray selectedItems = new SparseBooleanArray();
-
         public ItemViewHolder(final View itemView) {
             super(itemView);
 
@@ -87,38 +135,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             titleText = (TextView)itemView.findViewById(R.id.title);
             bodyText = (TextView)itemView.findViewById(R.id.body);
             dateText = (TextView)itemView.findViewById(R.id.date);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    int p = getLayoutPosition();
-                    Toast.makeText(itemView.getContext(), "Click Test " + p, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-
-                    if(actionMode == null) {
-                        actionMode = v.startActionMode(mActionModeCallback);
-                        actionMode.setTitle("selected");
-                    }
-
-                    if(selectedItems.get(getAdapterPosition(), false)) {
-                        selectedItems.delete(getAdapterPosition());
-                        v.setSelected(false);
-                    }else {
-                        selectedItems.put(getAdapterPosition(), true);
-                        v.setSelected(true);
-                    }
-
-                    int p = getLayoutPosition();
-                    Toast.makeText(itemView.getContext(), "LongClick Test " + p, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-            });
         }
     }
 
