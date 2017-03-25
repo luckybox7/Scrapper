@@ -1,6 +1,10 @@
 package com.ywc.scrapper.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
@@ -16,6 +20,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ywc.scrapper.R;
+import com.ywc.scrapper.activity.WebViewActivity;
+import com.ywc.scrapper.fragment.WebViewFragment;
 import com.ywc.scrapper.model.Content;
 
 import java.text.SimpleDateFormat;
@@ -31,10 +37,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     private Context context;
     private RealmResults<Content> itemList;
     private android.view.ActionMode actionMode;
-
     private SparseBooleanArray selectedItems;
-    private boolean checkSelected = false;
-
 
     public ItemAdapter(Context context, RealmResults<Content> items) {
         this.context=context;
@@ -75,49 +78,56 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             @Override
             public void onClick(View v) {
 
-//                if(actionMode != null) {
-//                    actionMode.finish();
-//                    actionMode.invalidate();
-//                }
-                if(checkSelected) {
-                    if(selectedItems.size() == 0) {
-                        checkSelected = false;
-                        return;
-                    }
-                    if(selectedItems.get(position, false)) {
-                        selectedItems.delete(position);
-                        holder.itemView.setSelected(false);
-                    } else {
-                        selectedItems.put(position, true);
-                        holder.itemView.setSelected(true);
-                    }
+                if(actionMode != null) {
+                    recyclerViewSelectResult(holder, position, v);
                 }else{
-                    //// TODO: 2017. 3. 22. Webview에 html파일 load하는 작업
-                    System.out.println("그냥 클릭");
+                    //// TODO: 2017. 3. 25. WebView에 html 로드
+                    Toast.makeText(context, position+" 번째 클릭", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                checkSelected = true;
-                if(selectedItems.get(position, false)) {
-                    selectedItems.delete(position);
-                    holder.itemView.setSelected(false);
-                }else{
-                    selectedItems.put(position, true);
-                    holder.itemView.setSelected(true);
-                }
 
-                if(actionMode == null) {
-                    actionMode = v.startActionMode(mActionModeCallback);
-                    actionMode.setTitle("selected");
-                }
+                recyclerViewSelectResult(holder, position, v);
                 return true;
             }
         });
 
     }
+
+    public void recyclerViewSelectResult(ItemViewHolder holder, int position, View view) {
+        selectView(holder, position, !selectedItems.get(position));
+
+        boolean hasCheckedItems = getSelectedCount() > 0;
+
+        if(hasCheckedItems && actionMode == null) {
+            actionMode = view.startActionMode(mActionModeCallback);
+        }else if(!hasCheckedItems && actionMode != null) {
+            actionMode.finish();
+        }
+
+        if(actionMode != null) {
+            actionMode.setTitle(getSelectedCount() + " selected");
+        }
+    }
+
+    public void selectView(ItemViewHolder holder, int position, boolean value) {
+        if(value) {
+            selectedItems.put(position, value);
+            holder.itemView.setSelected(value);
+        }else{
+            selectedItems.delete(position);
+            holder.itemView.setSelected(value);
+        }
+        notifyDataSetChanged();
+    }
+
+    public int getSelectedCount() {
+        return selectedItems.size();
+    }
+
 
 
 
