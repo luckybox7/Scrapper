@@ -52,7 +52,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ItemVi
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
-        //// TODO: 2017. 3. 19. date format 체크 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd "+" a hh:mm");
         
         final Content item = itemList.get(position); // 뷰 순서대로 위치 파악

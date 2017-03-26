@@ -18,14 +18,11 @@ import io.realm.RealmResults;
 
 public class DBmanager {
 
-
-
     public static void insertItem(String title, String description, String imageURL) {
         Date date = new Date(System.currentTimeMillis());
 
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        //// TODO: 2017. 3. 11. UUID 사용 확인
         Content content = realm.createObject(Content.class, UUID.randomUUID().toString());
         content.setTitle(title);
         content.setDescription(description);
@@ -55,13 +52,14 @@ public class DBmanager {
         realm.commitTransaction();
     }
 
-    public static RealmResults<Content> getFavoriteList() {
+    public static void deleteItem(String contentID) {
         Realm realm = Realm.getDefaultInstance();
+
         realm.beginTransaction();
-        RealmResults<Content> favoriteList = realm.where(Content.class).equalTo("favorite", true).findAll();
+        Content content = realm.where(Content.class).equalTo("contentID", contentID).findFirst();
+        content.deleteFromRealm();
         realm.commitTransaction();
 
-        return favoriteList;
     }
 
 
@@ -81,5 +79,12 @@ public class DBmanager {
                 .findAll();
 
         return folderList;
+    }
+
+    public static RealmResults<Content> getFavoriteList() {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Content> favoriteList = realm.where(Content.class).equalTo("favorite", true).findAll();
+
+        return favoriteList;
     }
 }

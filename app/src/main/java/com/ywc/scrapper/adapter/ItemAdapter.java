@@ -58,7 +58,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
-        //// TODO: 2017. 3. 19. date format 체크 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd "+" a hh:mm");
         
         final Content item = itemList.get(position); // 뷰 순서대로 위치 파악
@@ -126,11 +125,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return selectedItems.size();
     }
 
-    public void deleteRows() {
-
-    }
-
-
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -162,6 +156,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         }
     }
 
+    public void deleteRows() {
+        for(int i=0; i<selectedItems.size(); i++) {
+            int selectedPosition = selectedItems.keyAt(i);
+            String contentID = itemList.get(selectedPosition).getContentID();
+
+            DBmanager.deleteItem(contentID);
+        }
+    }
+
     private android.view.ActionMode.Callback mActionModeCallback = new android.view.ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
@@ -182,7 +185,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                     changeFavoriteStatus();
                     actionMode.finish();
 
-//                    Toast.makeText(context, "favorite click", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.action_mode_folder:
                     Toast.makeText(context, "folder click", Toast.LENGTH_SHORT).show();
