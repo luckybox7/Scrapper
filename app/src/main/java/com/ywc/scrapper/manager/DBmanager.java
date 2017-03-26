@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 /**
@@ -25,7 +26,7 @@ public class DBmanager {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         //// TODO: 2017. 3. 11. UUID 사용 확인
-        Content content = realm.createObject(Content.class, UUID.randomUUID().toString()); // 1은 contentID (PrimaryKey), 순서대로 자동증가 필요
+        Content content = realm.createObject(Content.class, UUID.randomUUID().toString());
         content.setTitle(title);
         content.setDescription(description);
         content.setImage(imageURL);
@@ -43,6 +44,26 @@ public class DBmanager {
 
         return contentList;
     }
+
+    public static void changeFavoriteStatus(String contentID) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+
+        Content content = realm.where(Content.class).equalTo("contentID", contentID).findFirst();
+        content.setFavorite(true);
+
+        realm.commitTransaction();
+    }
+
+    public static RealmResults<Content> getFavoriteList() {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        RealmResults<Content> favoriteList = realm.where(Content.class).equalTo("favorite", true).findAll();
+        realm.commitTransaction();
+
+        return favoriteList;
+    }
+
 
     public static void createFolder(String folderName) {
         Realm realm = Realm.getDefaultInstance();

@@ -59,7 +59,7 @@ public class Content extends RealmObject {
         this.description = description;
     }
 
-    public boolean isFavorite() {
+    public boolean getFavorite() {
         return favorite;
     }
 

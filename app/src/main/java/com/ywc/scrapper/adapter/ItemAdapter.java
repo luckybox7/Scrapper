@@ -1,11 +1,6 @@
 package com.ywc.scrapper.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -20,8 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ywc.scrapper.R;
-import com.ywc.scrapper.activity.WebViewActivity;
-import com.ywc.scrapper.fragment.WebViewFragment;
+import com.ywc.scrapper.manager.DBmanager;
 import com.ywc.scrapper.model.Content;
 
 import java.text.SimpleDateFormat;
@@ -74,6 +68,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.bodyText.setText(item.getDescription());
         holder.dateText.setText(dateFormat.format(item.getDate()));
 
+        if(item.getFavorite()){
+            holder.favorite.setImageResource(R.drawable.btn_starred_s);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +81,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 }else{
                     //// TODO: 2017. 3. 25. WebView에 html 로드
                     Toast.makeText(context, position+" 번째 클릭", Toast.LENGTH_SHORT).show();
+                    System.out.println("테스트코드 ======================= " + itemList.get(position).getFavorite());
                 }
             }
         });
@@ -97,7 +96,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     }
 
-    public void recyclerViewSelectResult(ItemViewHolder holder, int position, View view) {
+    private void recyclerViewSelectResult(ItemViewHolder holder, int position, View view) {
         selectView(holder, position, !selectedItems.get(position));
 
         boolean hasCheckedItems = getSelectedCount() > 0;
@@ -113,7 +112,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         }
     }
 
-    public void selectView(ItemViewHolder holder, int position, boolean value) {
+    private void selectView(ItemViewHolder holder, int position, boolean value) {
         if(value) {
             selectedItems.put(position, value);
             holder.itemView.setSelected(value);
@@ -121,19 +120,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             selectedItems.delete(position);
             holder.itemView.setSelected(value);
         }
-        notifyDataSetChanged();
     }
 
-    public int getSelectedCount() {
+    private int getSelectedCount() {
         return selectedItems.size();
     }
 
+    public void deleteRows() {
+
+    }
 
 
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         ImageView thumbnail;
+        ImageView favorite;
         TextView titleText;
         TextView bodyText;
         TextView dateText;
@@ -142,9 +144,21 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             super(itemView);
 
             thumbnail = (ImageView)itemView.findViewById(R.id.thumbnail);
+            favorite = (ImageView)itemView.findViewById(R.id.favorite);
             titleText = (TextView)itemView.findViewById(R.id.title);
             bodyText = (TextView)itemView.findViewById(R.id.body);
             dateText = (TextView)itemView.findViewById(R.id.date);
+
+        }
+    }
+
+    public void changeFavoriteStatus() {
+
+        for(int i=0; i<selectedItems.size(); i++) {
+            int selectedPosition = selectedItems.keyAt(i);
+            String contentID = itemList.get(selectedPosition).getContentID();
+
+            DBmanager.changeFavoriteStatus(contentID);
         }
     }
 
@@ -165,12 +179,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
             switch(item.getItemId()){
                 case R.id.action_mode_favorite:
-                    Toast.makeText(context, "favorite click", Toast.LENGTH_SHORT).show();
+                    changeFavoriteStatus();
+                    actionMode.finish();
+
+//                    Toast.makeText(context, "favorite click", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.action_mode_folder:
                     Toast.makeText(context, "folder click", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.action_mode_delete:
+                    deleteRows();
                     Toast.makeText(context, "delete click", Toast.LENGTH_SHORT).show();
             }
             return false;
